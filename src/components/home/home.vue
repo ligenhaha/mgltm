@@ -24,6 +24,9 @@
           </ul>
         </div>
       </div>
+      <div class="loading-container" v-show="!songList.length">
+        <loading></loading>
+      </div>
     </scroll>
   </div>
 </template>
@@ -36,6 +39,7 @@
   import {getSingerDetail} from 'api/singer'
   import {createSong, isValidMusic, processSongsUrl} from 'common/js/song'
   import {mapActions} from 'vuex'
+  import Loading from 'base/loading/loading'
 
   export default {
     data() {
@@ -64,7 +68,7 @@
         })
       },
       _getDetail() {
-        const singerid = '0020PeOh4ZaCw1'
+        const singerid = '002raUWw3PXdkT'
         getSingerDetail(singerid).then((res) => {
           if (res.code === ERR_OK) {
             processSongsUrl(this._normalizeSongs(res.data.list)).then((songs) => {
@@ -96,7 +100,8 @@
     },
     components: {
       Slider,
-      Scroll
+      Scroll,
+      Loading
     }
   }
 </script>
